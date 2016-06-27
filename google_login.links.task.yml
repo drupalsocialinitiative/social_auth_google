@@ -1,0 +1,4 @@
+google_login.settings.tab:
+  title: 'Google'
+  route_name: google_login.settings_form
+  base_route: social_auth.integrations
