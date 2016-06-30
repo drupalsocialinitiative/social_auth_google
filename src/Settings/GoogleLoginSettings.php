@@ -32,13 +32,6 @@ class GoogleLoginSettings extends SettingsBase implements GoogleLoginSettingsInt
   protected $clientSecret;
 
   /**
-   * Redirect uri
-   *
-   * @var string
-   */
-  protected $redirectUri;
-
-  /**
    * {@inheritdoc}
    */
   public function getClientId() {
