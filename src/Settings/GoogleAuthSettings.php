@@ -1,13 +1,7 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\google_login\Settings\GoogleLoginSettings.
- */
+namespace Drupal\social_auth_google\Settings;
 
-namespace Drupal\google_login\Settings;
-
-use Drupal\Core\Config\ImmutableConfig;
 use Drupal\social_api\Settings\SettingsBase;
 
 /**
@@ -15,7 +9,7 @@ use Drupal\social_api\Settings\SettingsBase;
  *
  * @package Drupal\google_login\Settings
  */
-class GoogleLoginSettings extends SettingsBase implements GoogleLoginSettingsInterface {
+class GoogleAuthSettings extends SettingsBase implements GoogleAuthSettingsInterface {
 
   /**
    * Client ID.

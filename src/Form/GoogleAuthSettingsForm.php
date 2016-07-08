@@ -1,40 +1,34 @@
 <?php
-/**
- * @file
- * Contains \Drupal\google_login\Form\GoogleLoginSettingsForm
- */
 
-namespace Drupal\google_login\Form;
+namespace Drupal\social_auth_google\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Class GoogleLoginSettingsForm
- *
- * @package Drupal\google_login\Form
+ * Creates the settings form
  */
-class GoogleLoginSettingsForm extends ConfigFormBase {
+class GoogleAuthSettingsForm extends ConfigFormBase {
 
   /**
    * {@inheritdoc}
    */
   protected function getEditableConfigNames() {
-    return array('google_login.settings');
+    return array('social_auth_google.settings');
   }
 
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'google_login_settings';
+    return 'social_auth_google_settings';
   }
 
   /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $config = $this->config('google_login.settings');
+    $config = $this->config('social_auth_google.settings');
 
     $form['google_settings'] = array(
       '#type' => 'details',
@@ -67,7 +61,7 @@ class GoogleLoginSettingsForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
 
-    $this->config('google_login.settings')
+    $this->config('social_auth_google.settings')
       ->set('client_id', $values['client_id'])
       ->set('client_secret', $values['client_secret'])
       ->save();

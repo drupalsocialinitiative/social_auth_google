@@ -1,11 +1,6 @@
 <?php
-/**
- * @file
- * Contains \Drupal\google_login\Plugin\Network\GoogleLogin
- */
 
-namespace Drupal\google_login\Plugin\Network;
-
+namespace Drupal\social_auth_google\Plugin\Network;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -15,23 +10,19 @@ use Drupal\social_api\SocialApiException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Class GoogleLogin
- *
- * @package Drupal\google_login\Plugin\Network
- *
  * @Network(
- *   id = "google_login",
+ *   id = "social_auth_google",
  *   social_network = "Google",
  *   type = "social_auth",
  *   handlers = {
  *      "settings": {
- *          "class": "\Drupal\google_login\Settings\GoogleLoginSettings",
- *          "config_id": "google_login.settings"
+ *          "class": "\Drupal\social_auth_google\Settings\GoogleAuthSettings",
+ *          "config_id": "social_auth_google.settings"
  *      }
  *   }
  * )
  */
-class GoogleLogin extends NetworkBase {
+class GoogleAuth extends NetworkBase {
   /**
    * @var \Drupal\Core\Routing\UrlGeneratorInterface
    */
@@ -76,11 +67,11 @@ class GoogleLogin extends NetworkBase {
       throw new SocialApiException(sprintf('The PHP SDK for Google Services could not be found. Class: %s.', $class_name));
     }
 
-    /* @var \Drupal\google_login\Settings\GoogleLoginSettings $settings */
+    /* @var \Drupal\social_auth_google\Settings\GoogleAuthSettings $settings */
     $settings = $this->settings;
 
     // Gets the absolute url of the callback
-    $redirect_uri = $this->urlGenerator->generateFromRoute('google_login.callback', array() ,array('absolute' => TRUE ));
+    $redirect_uri = $this->urlGenerator->generateFromRoute('social_auth_google.callback', array() ,array('absolute' => TRUE));
 
     // Creates a and sets data to Google_Client object
     $client = new \Google_Client();

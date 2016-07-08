@@ -1,18 +1,8 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\google_login\Settings\GoogleLoginSettingsInterface.
- */
+namespace Drupal\social_auth_google\Settings;
 
-namespace Drupal\google_login\Settings;
-
-/**
- * Class FacebookSettingsInterface.
- *
- * @package Drupal\google_login\Settings
- */
-interface GoogleLoginSettingsInterface {
+interface GoogleAuthSettingsInterface {
 
   /**
    * Gets the client ID.

@@ -1,20 +1,18 @@
 <?php
-/**
- * @file
- * Contains \Drupal\google_login\Controller\GoogleLoginController.
- */
 
-namespace Drupal\google_login\Controller;
-
+namespace Drupal\social_auth_google\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\google_login\GoogleLoginManager;
+use Drupal\social_auth_google\GoogleAuthManager;
 use Drupal\social_api\Plugin\NetworkManager;
 use Drupal\social_auth\SocialAuthUserManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Zend\Diactoros\Response\RedirectResponse;
 
-class GoogleLoginController extends ControllerBase {
+/**
+ * Manages requests to Google API
+ */
+class GoogleAuthController extends ControllerBase {
 
   /**
    * @var \Drupal\social_api\Plugin\NetworkManager
@@ -22,7 +20,7 @@ class GoogleLoginController extends ControllerBase {
   private $networkManager;
 
   /**
-   * @var \Drupal\google_login\GoogleLoginManager
+   * @var \Drupal\social_auth_google\GoogleAuthManager
    */
   private $googleManager;
   /**
@@ -34,10 +32,10 @@ class GoogleLoginController extends ControllerBase {
    * GoogleLoginController constructor.
    *
    * @param \Drupal\social_api\Plugin\NetworkManager $network_manager
-   * @param \Drupal\google_login\GoogleLoginManager $google_manager
+   * @param \Drupal\social_auth_google\GoogleAuthManager $google_manager
    * @param \Drupal\social_auth\SocialAuthUserManager $user_manager
    */
-  public function __construct(NetworkManager $network_manager, GoogleLoginManager $google_manager, SocialAuthUserManager $user_manager) {
+  public function __construct(NetworkManager $network_manager, GoogleAuthManager $google_manager, SocialAuthUserManager $user_manager) {
     $this->networkManager = $network_manager;
     $this->googleManager = $google_manager;
     $this->userManager = $user_manager;
@@ -49,7 +47,7 @@ class GoogleLoginController extends ControllerBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('plugin.network.manager'),
-      $container->get('google_login.manager'),
+      $container->get('google_auth.manager'),
       $container->get('social_auth.user_manager')
     );
   }
@@ -61,7 +59,7 @@ class GoogleLoginController extends ControllerBase {
    */
   public function redirectToGoogle() {
     /* @var \Google_Client $client */
-    $client = $this->networkManager->createInstance('google_login')->getSdk();
+    $client = $this->networkManager->createInstance('social_auth_google')->getSdk();
     $client->setScopes(array('email', 'profile'));
 
     return new RedirectResponse($client->createAuthUrl());
@@ -72,11 +70,11 @@ class GoogleLoginController extends ControllerBase {
    */
   public function callback() {
     /* @var \Google_Client $client */
-    $client = $this->networkManager->createInstance('google_login')->getSdk();
+    $client = $this->networkManager->createInstance('social_auth_google')->getSdk();
 
     $this->googleManager->setClient($client)
       ->authenticate()
-      ->saveAccessToken('google_login')
+      ->saveAccessToken('social_auth_google_token')
       ->createService();
 
     // If user information could be retrieved

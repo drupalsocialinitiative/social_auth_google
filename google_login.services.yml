@@ -1,6 +1,0 @@
-services:
-  google_login.manager:
-    class: Drupal\google_login\GoogleLoginManager
-    arguments:
-      - @session
-      - @request_stack

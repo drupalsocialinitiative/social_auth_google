@@ -1,0 +1,21 @@
+<?php
+/**
+ * @file
+ * Install and uninstall functions for the Google Login module.
+ */
+
+use Drupal\social_auth\Controller\SocialAuthController;
+
+/**
+* Implements hook_install().
+*/
+function social_auth_google_install() {
+  SocialAuthController::setLoginButtonSettings('social_auth_google', 'social_auth_google.redirect_to_google', 'img/google_logo.svg');
+}
+
+/**
+* Implements hook_uninstall().
+*/
+function social_auth_google_uninstall() {
+  SocialAuthController::deleteLoginButtonSettings('social_auth_google');
+}

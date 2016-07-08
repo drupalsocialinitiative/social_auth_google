@@ -1,5 +1,5 @@
 {
-    "name": "gvso/google_login",
+    "name": "gvso/social_auth_google",
     "require": {
         "google/apiclient": "~2.0"
     },

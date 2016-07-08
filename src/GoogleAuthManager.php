@@ -1,20 +1,14 @@
 <?php
-/**
- * @file
- * Contains \Drupal\google_login\GoogleLoginManager.
- */
 
-namespace Drupal\google_login;
+namespace Drupal\social_auth_google;
 
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
- * Class GoogleLoginManager
- *
- * @package Drupal\google_login
+ * Manages the authentication requests
  */
-class GoogleLoginManager {
+class GoogleAuthManager {
   /**
    * @var \Symfony\Component\HttpFoundation\Session\Session
    */
@@ -59,7 +53,7 @@ class GoogleLoginManager {
    * @return array
    */
   public function getAccessToken() {
-    return $this->session->get('google_token');
+    return $this->session->get('social_auth_google_token');
   }
 
   /**
