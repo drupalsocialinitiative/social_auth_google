@@ -48,7 +48,7 @@ class GoogleAuthManager {
   }
 
   /**
-   * Get the access token
+   * Gets the access token
    *
    * @return array
    */
@@ -57,6 +57,8 @@ class GoogleAuthManager {
   }
 
   /**
+   * Sets the client object
+   *
    * @param \Google_Client $client
    *
    * @return $this
@@ -67,6 +69,17 @@ class GoogleAuthManager {
   }
 
   /**
+   * Gets the client object
+   *
+   * @return \Google_Client
+   */
+  public function getClient() {
+    return $this->client;
+  }
+
+  /**
+   * Authenticates the users by using the returned code
+   *
    * @return $this
    */
   public function authenticate() {
@@ -75,22 +88,22 @@ class GoogleAuthManager {
   }
 
   /**
-   * Save the access token
+   * Saves the access token
    *
    * @param string $key
    *
    * @return $this
    */
   public function saveAccessToken($key) {
-    $this->session->set($key, $this->client->getAccessToken());
+    $this->session->set($key, $this->getClient()->getAccessToken());
     return $this;
   }
 
   /**
-   * Create Google Oauth2 Service
+   * Creates Google Oauth2 Service
    */
   public function createService() {
-    $this->googleService = new \Google_Service_Oauth2($this->client);
+    $this->googleService = new \Google_Service_Oauth2($this->getClient());
   }
 
   /**
@@ -101,7 +114,7 @@ class GoogleAuthManager {
   }
 
   /**
-   * Get the code return to authenticate
+   * Gets the code return to authenticate
    *
    * @return mixed
    */
