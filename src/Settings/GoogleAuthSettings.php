@@ -5,9 +5,7 @@ namespace Drupal\social_auth_google\Settings;
 use Drupal\social_api\Settings\SettingsBase;
 
 /**
- * Class FacebookSettings.
- *
- * @package Drupal\google_login\Settings
+ * Returns the client information
  */
 class GoogleAuthSettings extends SettingsBase implements GoogleAuthSettingsInterface {
 

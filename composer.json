@@ -1,12 +1,12 @@
 {
-    "name": "gvso/social_auth_google",
-    "require": {
-        "google/apiclient": "~2.0"
-    },
-    "authors": [
-        {
-            "name": "Getulio Valentin Sánchez",
-            "email": "valentin2507@gmail.com"
-        }
-    ]
+  "name": "gvso/social_auth_google",
+  "require": {
+    "google/apiclient": "~2.0"
+  },
+  "authors": [
+    {
+      "name": "Getulio Valentin Sánchez",
+      "email": "valentin2507@gmail.com"
+    }
+  ]
 }
