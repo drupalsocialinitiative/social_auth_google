@@ -37,7 +37,7 @@ SETUP
 -----
 
 Installation instructions for Drupal 8 can be found at
-https://www.drupal.org/node/2642974
+https://www.drupal.org/node/2764227
 
 
 SUPPORT REQUESTS
@@ -54,7 +54,7 @@ Before posting a support request, check Recent log entries at
 admin/reports/dblog
 
 Once you have done this, you can post a support request at module issue queue:
-https://www.drupal.org/project/issues/simple_fb_connect
+https://www.drupal.org/sandbox/gvso/2763739
 
 When posting a support request, please inform what does the status report say
 at admin/reports/composer-manager and if you were able to see any errors in
