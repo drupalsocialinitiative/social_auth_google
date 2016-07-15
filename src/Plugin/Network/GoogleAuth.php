@@ -10,6 +10,8 @@ use Drupal\social_api\SocialApiException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
+ * Defines Social Auth Google Network Plugin.
+ *
  * @Network(
  *   id = "social_auth_google",
  *   social_network = "Google",
@@ -24,7 +26,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class GoogleAuth extends NetworkBase {
   /**
-   * @var \Drupal\Core\Routing\UrlGeneratorInterface
+   * The url generator.
+   *
+   * @var \Drupal\Core\Render\MetadataBubblingUrlGenerator
    */
   protected $urlGenerator;
 
@@ -46,11 +50,17 @@ class GoogleAuth extends NetworkBase {
    * GoogleLogin constructor.
    *
    * @param \Drupal\Core\Render\MetadataBubblingUrlGenerator $url_generator
+   *   Used to generate a absolute url for authentication.
    * @param array $configuration
-   * @param mixed $plugin_id
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $plugin_definition
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin_id for the plugin instance.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
+   * @param EntityTypeManagerInterface $entity_type_manager
+   *   The entity type manager.
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
+   *   The configuration factory.
    */
   public function __construct(MetadataBubblingUrlGenerator $url_generator, array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, ConfigFactoryInterface $config_factory) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $entity_type_manager, $config_factory);
@@ -70,10 +80,10 @@ class GoogleAuth extends NetworkBase {
     /* @var \Drupal\social_auth_google\Settings\GoogleAuthSettings $settings */
     $settings = $this->settings;
 
-    // Gets the absolute url of the callback
-    $redirect_uri = $this->urlGenerator->generateFromRoute('social_auth_google.callback', array() ,array('absolute' => TRUE));
+    // Gets the absolute url of the callback.
+    $redirect_uri = $this->urlGenerator->generateFromRoute('social_auth_google.callback', array(), array('absolute' => TRUE));
 
-    // Creates a and sets data to Google_Client object
+    // Creates a and sets data to Google_Client object.
     $client = new \Google_Client();
     $client->setClientId($settings->getClientId());
     $client->setClientSecret($settings->getClientSecret());
@@ -81,4 +91,5 @@ class GoogleAuth extends NetworkBase {
 
     return $client;
   }
+
 }

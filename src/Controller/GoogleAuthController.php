@@ -10,20 +10,27 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Zend\Diactoros\Response\RedirectResponse;
 
 /**
- * Manages requests to Google API
+ * Manages requests to Google API.
  */
 class GoogleAuthController extends ControllerBase {
 
   /**
+   * The network plugin manager.
+   *
    * @var \Drupal\social_api\Plugin\NetworkManager
    */
   private $networkManager;
 
   /**
+   * The Google authentication manager.
+   *
    * @var \Drupal\social_auth_google\GoogleAuthManager
    */
   private $googleManager;
+
   /**
+   * The user manager.
+   *
    * @var \Drupal\social_auth\SocialAuthUserManager
    */
   private $userManager;
@@ -32,8 +39,11 @@ class GoogleAuthController extends ControllerBase {
    * GoogleLoginController constructor.
    *
    * @param \Drupal\social_api\Plugin\NetworkManager $network_manager
+   *   Used to get an instance of social_auth_google network plugin.
    * @param \Drupal\social_auth_google\GoogleAuthManager $google_manager
+   *   Used to manage authentication methods.
    * @param \Drupal\social_auth\SocialAuthUserManager $user_manager
+   *   Manages user login/registration.
    */
   public function __construct(NetworkManager $network_manager, GoogleAuthManager $google_manager, SocialAuthUserManager $user_manager) {
     $this->networkManager = $network_manager;
@@ -53,9 +63,10 @@ class GoogleAuthController extends ControllerBase {
   }
 
   /**
-   * Redirect to Google Services Authentication page
+   * Redirect to Google Services Authentication page.
    *
    * @return \Zend\Diactoros\Response\RedirectResponse
+   *   Redirection to Google Accounts.
    */
   public function redirectToGoogle() {
     /* @var \Google_Client $client */
@@ -66,7 +77,7 @@ class GoogleAuthController extends ControllerBase {
   }
 
   /**
-   * Callback function to login user
+   * Callback function to login user.
    */
   public function callback() {
     /* @var \Google_Client $client */
@@ -77,19 +88,19 @@ class GoogleAuthController extends ControllerBase {
       ->saveAccessToken('social_auth_google_token')
       ->createService();
 
-    // If user information could be retrieved
-    if($user = $this->googleManager->getUserInfo()) {
-      // If user email has already an account in the site
-      if($drupal_user = $this->userManager->loadUserByProperty('mail', $user->getEmail())) {
-        if($this->userManager->loginUser($drupal_user)) {
+    // If user information could be retrieved.
+    if ($user = $this->googleManager->getUserInfo()) {
+      // If user email has already an account in the site.
+      if ($drupal_user = $this->userManager->loadUserByProperty('mail', $user->getEmail())) {
+        if ($this->userManager->loginUser($drupal_user)) {
           return $this->redirect('user.page');
         }
       }
 
-      // If the new user could be registered
-      if($drupal_user = $this->userManager->createUser($user->getName(), $user->getEmail())) {
-        // If the new user could be logged in
-        if($this->userManager->loginUser($drupal_user)) {
+      // If the new user could be registered.
+      if ($drupal_user = $this->userManager->createUser($user->getName(), $user->getEmail())) {
+        // If the new user could be logged in.
+        if ($this->userManager->loginUser($drupal_user)) {
           return $this->redirect('user.page');
         }
       }
@@ -98,4 +109,5 @@ class GoogleAuthController extends ControllerBase {
     drupal_set_message($this->t('You could not be authenticated, please contact the administrator'), 'error');
     return $this->redirect('user.login');
   }
+
 }

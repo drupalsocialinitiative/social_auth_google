@@ -6,7 +6,7 @@ use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Creates the settings form
+ * Creates the settings form.
  */
 class GoogleAuthSettingsForm extends ConfigFormBase {
 
@@ -68,4 +68,5 @@ class GoogleAuthSettingsForm extends ConfigFormBase {
 
     parent::submitForm($form, $form_state);
   }
+
 }

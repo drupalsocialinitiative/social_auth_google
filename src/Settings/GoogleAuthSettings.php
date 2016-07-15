@@ -5,7 +5,7 @@ namespace Drupal\social_auth_google\Settings;
 use Drupal\social_api\Settings\SettingsBase;
 
 /**
- * Returns the client information
+ * Returns the client information.
  */
 class GoogleAuthSettings extends SettingsBase implements GoogleAuthSettingsInterface {
 
@@ -42,4 +42,5 @@ class GoogleAuthSettings extends SettingsBase implements GoogleAuthSettingsInter
     }
     return $this->clientSecret;
   }
+
 }

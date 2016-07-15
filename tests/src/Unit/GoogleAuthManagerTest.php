@@ -11,21 +11,29 @@ use Drupal\social_auth_google\GoogleAuthManager;
  */
 class GoogleAuthManagerTest extends UnitTestCase {
   /**
+   * Session object.
+   *
    * @var \Symfony\Component\HttpFoundation\Session\Session
    */
   protected $session;
 
   /**
+   * Request object.
+   *
    * @var \Symfony\Component\HttpFoundation\Request
    */
   protected $request;
 
   /**
+   * Google Client object.
+   *
    * @var \Google_Client
    */
   protected $client;
 
   /**
+   * Google Authentication manager.
+   *
    * @var GoogleAuthManager
    */
   protected $googleManager;
@@ -71,9 +79,10 @@ class GoogleAuthManagerTest extends UnitTestCase {
   }
 
   /**
-   * Sets \Google_Client object to GoogleAuthManager
+   * Sets \Google_Client object to GoogleAuthManager.
    *
    * @return GoogleAuthManager
+   *    setClient() returns $this, the GoogleAuthManager object.
    */
   protected  function setClient() {
     return $this->googleManager->setClient($this->client);

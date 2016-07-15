@@ -2,6 +2,9 @@
 
 namespace Drupal\social_auth_google\Settings;
 
+/**
+ * Defines an interface for Social Auth Google settings.
+ */
 interface GoogleAuthSettingsInterface {
 
   /**
