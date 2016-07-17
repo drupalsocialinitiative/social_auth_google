@@ -8,6 +8,24 @@
 use Drupal\social_auth\Controller\SocialAuthController;
 
 /**
+ * Implements hook_requirements().
+ */
+function social_auth_google_requirements($phase) {
+  $requirements = array();
+
+  if ($phase == 'install') {
+    if (!class_exists('\Google_Client')) {
+      $requirements['social_auth_google'] = [
+        'description' => t('Social Auth Google requires Google API PHP Client. Make sure the library is installed via Composer. Check README.txt for installation instructions.'),
+        'severity' => REQUIREMENT_ERROR,
+      ];
+    }
+  }
+
+  return $requirements;
+}
+
+/**
  * Implements hook_install().
  */
 function social_auth_google_install() {
