@@ -5,8 +5,8 @@ namespace Drupal\social_auth_google\Plugin\Network;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Render\MetadataBubblingUrlGenerator;
-use Drupal\social_api\Plugin\NetworkBase;
 use Drupal\social_api\SocialApiException;
+use Drupal\social_auth\Plugin\Network\SocialAuthNetwork;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -24,7 +24,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   }
  * )
  */
-class GoogleAuth extends NetworkBase {
+class GoogleAuth extends SocialAuthNetwork {
   /**
    * The url generator.
    *
@@ -71,7 +71,7 @@ class GoogleAuth extends NetworkBase {
   /**
    * {@inheritdoc}
    */
-  protected function initSdk() {
+  public function initSdk() {
     $class_name = '\Google_Client';
     if (!class_exists($class_name)) {
       throw new SocialApiException(sprintf('The PHP SDK for Google Services could not be found. Class: %s.', $class_name));
