@@ -92,8 +92,10 @@ class GoogleAuthController extends ControllerBase {
     $user = $this->googleManager->getUserInfo();
     // If user information could be retrieved.
     if ($user) {
+      // Tries to load the user by his email.
+      $drupal_user = $this->userManager->loadUserByProperty('mail', $user->getEmail());
       // If user email has already an account in the site.
-      if ($drupal_user = $this->userManager->loadUserByProperty('mail', $user->getEmail())) {
+      if ($drupal_user) {
         if ($this->userManager->loginUser($drupal_user)) {
           return $this->redirect('user.page');
         }
