@@ -3,18 +3,11 @@
 namespace Drupal\social_auth_google;
 
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
  * Manages the authentication requests.
  */
 class GoogleAuthManager {
-  /**
-   * The session object.
-   *
-   * @var \Symfony\Component\HttpFoundation\Session\Session
-   */
-  private $session;
 
   /**
    * The request object.
@@ -47,24 +40,11 @@ class GoogleAuthManager {
   /**
    * GoogleLoginManager constructor.
    *
-   * @param \Symfony\Component\HttpFoundation\Session\Session $session
-   *   Used to access and store session variables.
    * @param \Symfony\Component\HttpFoundation\RequestStack $request
    *   Used to get the parameter code returned by Google.
    */
-  public function __construct(Session $session, RequestStack $request) {
-    $this->session = $session;
+  public function __construct(RequestStack $request) {
     $this->request = $request->getCurrentRequest();
-  }
-
-  /**
-   * Gets the access token.
-   *
-   * @return array
-   *   Array with the token data.
-   */
-  public function getAccessToken() {
-    return $this->session->get('social_auth_google_token');
   }
 
   /**
@@ -99,20 +79,6 @@ class GoogleAuthManager {
    */
   public function authenticate() {
     $this->client->authenticate($this->getCode());
-    return $this;
-  }
-
-  /**
-   * Saves the access token.
-   *
-   * @param string $key
-   *   The session key.
-   *
-   * @return $this
-   *   The current object.
-   */
-  public function saveAccessToken($key) {
-    $this->session->set($key, $this->getClient()->getAccessToken());
     return $this;
   }
 

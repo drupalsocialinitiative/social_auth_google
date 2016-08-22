@@ -85,7 +85,6 @@ class GoogleAuthController extends ControllerBase {
 
     $this->googleManager->setClient($client)
       ->authenticate()
-      ->saveAccessToken('social_auth_google_token')
       ->createService();
 
     // Gets user information.
