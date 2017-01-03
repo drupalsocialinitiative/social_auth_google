@@ -3,6 +3,8 @@
 namespace Drupal\social_auth_google;
 
 use Symfony\Component\HttpFoundation\RequestStack;
+use Google_Client;
+use Google_Service_Oauth2;
 
 /**
  * Manages the authentication requests.
@@ -19,7 +21,7 @@ class GoogleAuthManager {
   /**
    * The Google client.
    *
-   * @var \Google_Client
+   * @var Google_Client
    */
   private $client;
 
@@ -33,7 +35,7 @@ class GoogleAuthManager {
   /**
    * The Google Oauth2 object.
    *
-   * @var \Google_Service_Oauth2
+   * @var Google_Service_Oauth2
    */
   private $googleService;
 
@@ -50,13 +52,13 @@ class GoogleAuthManager {
   /**
    * Sets the client object.
    *
-   * @param \Google_Client $client
+   * @param Google_Client $client
    *   Google Client object.
    *
    * @return $this
    *   The current object.
    */
-  public function setClient(\Google_Client $client) {
+  public function setClient(Google_Client $client) {
     $this->client = $client;
     return $this;
   }
@@ -64,7 +66,7 @@ class GoogleAuthManager {
   /**
    * Gets the client object.
    *
-   * @return \Google_Client.
+   * @return Google_Client
    *   The Google Client object.
    */
   public function getClient() {
@@ -86,14 +88,14 @@ class GoogleAuthManager {
    * Creates Google Oauth2 Service.
    */
   public function createService() {
-    $this->googleService = new \Google_Service_Oauth2($this->getClient());
+    $this->googleService = new Google_Service_Oauth2($this->getClient());
   }
 
   /**
    * Returns the user information.
    *
-   * @return \Google_Service_Oauth2_Userinfoplus.
-   *   Google_Service_Userinfoplus object.
+   * @return \Google_Service_Oauth2_Userinfoplus
+   *   The Google_Service_Userinfoplus object.
    */
   public function getUserInfo() {
     return $this->googleService->userinfo->get();
