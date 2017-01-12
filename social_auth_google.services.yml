@@ -2,4 +2,4 @@ services:
   google_auth.manager:
     class: Drupal\social_auth_google\GoogleAuthManager
     arguments:
-      - @request_stack
+      - '@request_stack'
