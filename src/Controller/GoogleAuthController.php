@@ -95,16 +95,16 @@ class GoogleAuthController extends ControllerBase {
       $drupal_user = $this->userManager->loadUserByProperty('mail', $user->getEmail());
       // If user email has already an account in the site.
       if ($drupal_user) {
-        if ($this->userManager->loginUser($drupal_user)) {
+        if ($this->userManager->loginUser($drupal_user, 'social_auth_google')) {
           return $this->redirect('user.page');
         }
       }
 
-      $drupal_user = $this->userManager->createUser($user->getName(), $user->getEmail());
+      $drupal_user = $this->userManager->createUser($user->getName(), $user->getEmail(), 'social_auth_google');
       // If the new user could be registered.
       if ($drupal_user) {
         // If the new user could be logged in.
-        if ($this->userManager->loginUser($drupal_user)) {
+        if ($this->userManager->loginUser($drupal_user, 'social_auth_google')) {
           return $this->redirect('user.page');
         }
       }
