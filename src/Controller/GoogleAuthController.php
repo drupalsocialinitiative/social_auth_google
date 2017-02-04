@@ -49,6 +49,7 @@ class GoogleAuthController extends ControllerBase {
     $this->networkManager = $network_manager;
     $this->googleManager = $google_manager;
     $this->userManager = $user_manager;
+    $this->userManager->setPluginId('social_auth_google');
   }
 
   /**
@@ -91,23 +92,7 @@ class GoogleAuthController extends ControllerBase {
     $user = $this->googleManager->getUserInfo();
     // If user information could be retrieved.
     if ($user) {
-      // Tries to load the user by his email.
-      $drupal_user = $this->userManager->loadUserByProperty('mail', $user->getEmail());
-      // If user email has already an account in the site.
-      if ($drupal_user) {
-        if ($this->userManager->loginUser($drupal_user, 'social_auth_google')) {
-          return $this->redirect('user.page');
-        }
-      }
-
-      $drupal_user = $this->userManager->createUser($user->getName(), $user->getEmail(), 'social_auth_google');
-      // If the new user could be registered.
-      if ($drupal_user) {
-        // If the new user could be logged in.
-        if ($this->userManager->loginUser($drupal_user, 'social_auth_google')) {
-          return $this->redirect('user.page');
-        }
-      }
+      return $this->userManager->authenticateUser($user->getEmail(), $user->getName(), $user->getId(), $user->getPicture());
     }
 
     drupal_set_message($this->t('You could not be authenticated, please contact the administrator'), 'error');
