@@ -45,7 +45,7 @@ class GoogleAuthManager extends OAuth2Manager {
   /**
    * {@inheritdoc}
    */
-  public function oAuthAuthenticate() {
+  public function authenticate() {
     $this->client->setAccessToken($this->getAccessToken());
     return $this;
   }

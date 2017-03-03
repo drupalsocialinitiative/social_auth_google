@@ -99,7 +99,7 @@ class GoogleAuthController extends ControllerBase {
     /* @var \Google_Client $client */
     $client = $this->networkManager->createInstance('social_auth_google')->getSdk();
 
-    $this->googleManager->setClient($client)->oAuthAuthenticate();
+    $this->googleManager->setClient($client)->authenticate();
 
     // Saves access token so that event subscribers can call Google API.
     $this->session->set('social_auth_google_access_token', $this->googleManager->getAccessToken());
