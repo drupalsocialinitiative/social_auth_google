@@ -7,6 +7,7 @@ use Drupal\social_auth_google\GoogleAuthManager;
 use Drupal\social_api\Plugin\NetworkManager;
 use Drupal\social_auth\SocialAuthUserManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Zend\Diactoros\Response\RedirectResponse;
 
 /**
@@ -19,37 +20,50 @@ class GoogleAuthController extends ControllerBase {
    *
    * @var \Drupal\social_api\Plugin\NetworkManager
    */
-  private $networkManager;
+  protected $networkManager;
 
   /**
    * The Google authentication manager.
    *
    * @var \Drupal\social_auth_google\GoogleAuthManager
    */
-  private $googleManager;
+  protected $googleManager;
 
   /**
    * The user manager.
    *
    * @var \Drupal\social_auth\SocialAuthUserManager
    */
-  private $userManager;
+  protected $userManager;
+
+  /**
+   * The session manager.
+   *
+   * @var \Symfony\Component\HttpFoundation\Session\SessionInterface
+   */
+  protected $session;
 
   /**
    * GoogleLoginController constructor.
    *
    * @param \Drupal\social_api\Plugin\NetworkManager $network_manager
    *   Used to get an instance of social_auth_google network plugin.
-   * @param \Drupal\social_auth_google\GoogleAuthManager $google_manager
-   *   Used to manage authentication methods.
    * @param \Drupal\social_auth\SocialAuthUserManager $user_manager
    *   Manages user login/registration.
+   * @param \Drupal\social_auth_google\GoogleAuthManager $google_manager
+   *   Used to manage authentication methods.
+   * @param SessionInterface $session
+   *   Used to store the access token into a session variable.
    */
-  public function __construct(NetworkManager $network_manager, GoogleAuthManager $google_manager, SocialAuthUserManager $user_manager) {
+  public function __construct(NetworkManager $network_manager, SocialAuthUserManager $user_manager, GoogleAuthManager $google_manager, SessionInterface $session) {
     $this->networkManager = $network_manager;
-    $this->googleManager = $google_manager;
     $this->userManager = $user_manager;
+    $this->googleManager = $google_manager;
+    $this->session = $session;
+    // Sets the plugin id.
     $this->userManager->setPluginId('social_auth_google');
+    // Sets the session keys to nullify if user could not logged in.
+    $this->userManager->setSessionKeysToNullify(['social_auth_google_access_token']);
   }
 
   /**
@@ -58,8 +72,9 @@ class GoogleAuthController extends ControllerBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('plugin.network.manager'),
-      $container->get('google_auth.manager'),
-      $container->get('social_auth.user_manager')
+      $container->get('social_auth.user_manager'),
+      $container->get('social_auth_google.manager'),
+      $container->get('session')
     );
   }
 
@@ -85,8 +100,11 @@ class GoogleAuthController extends ControllerBase {
     $client = $this->networkManager->createInstance('social_auth_google')->getSdk();
 
     $this->googleManager->setClient($client)
-      ->authenticate()
+      ->oAuthAuthenticate()
       ->createService();
+
+    // Saves access token so that event subscribers can call Google API.
+    $this->session->set('social_auth_google_access_token', $this->googleManager->getAccessToken());
 
     // Gets user information.
     $user = $this->googleManager->getUserInfo();

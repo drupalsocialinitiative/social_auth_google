@@ -16,28 +16,35 @@ class GoogleAuthManager {
    *
    * @var \Symfony\Component\HttpFoundation\Request
    */
-  private $request;
+  protected $request;
 
   /**
    * The Google client.
    *
    * @var Google_Client
    */
-  private $client;
+  protected $client;
 
   /**
    * Code returned by Google for authentication.
    *
    * @var string
    */
-  private $code;
+  protected $code;
+
+  /**
+   * Access token for OAuth authentication.
+   *
+   * @var string
+   */
+  protected $accessToken;
 
   /**
    * The Google Oauth2 object.
    *
    * @var Google_Service_Oauth2
    */
-  private $googleService;
+  protected $googleService;
 
   /**
    * GoogleLoginManager constructor.
@@ -74,13 +81,41 @@ class GoogleAuthManager {
   }
 
   /**
-   * Authenticates the users by using the returned code.
+   * Authenticates the users by using the access token.
    *
    * @return $this
    *   The current object.
    */
-  public function authenticate() {
-    $this->client->authenticate($this->getCode());
+  public function oAuthAuthenticate() {
+    $this->client->setAccessToken($this->getAccessToken());
+    return $this;
+  }
+
+  /**
+   * Gets the access token by using the returned code.
+   *
+   * @return string
+   *   The access token.
+   */
+  public function getAccessToken() {
+    if (!$this->accessToken) {
+      $this->accessToken = $this->client->fetchAccessTokenWithAuthCode($this->getCode());
+    }
+
+    return $this->accessToken;
+  }
+
+  /**
+   * Sets the access token.
+   *
+   * @param array $access_token
+   *   The access token.
+   *
+   * @return $this
+   *   The current object.
+   */
+  public function setAccessToken(array $access_token) {
+    $this->accessToken = $access_token;
     return $this;
   }
 
