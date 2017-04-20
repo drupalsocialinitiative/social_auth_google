@@ -87,7 +87,7 @@ class GoogleAuthController extends ControllerBase {
   public function redirectToGoogle() {
     /* @var \Google_Client $client */
     $client = $this->networkManager->createInstance('social_auth_google')->getSdk();
-    $client->setScopes(array('email', 'profile'));
+    $client->setScopes(['email', 'profile']);
 
     return new RedirectResponse($client->createAuthUrl());
   }
