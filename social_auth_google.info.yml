@@ -1,8 +1,8 @@
 name: Social Auth Google
-description: Social Auth integration for Google
-core: 8.x
 type: module
+description: 'Social Auth integration for Google.'
 package: Social
+core: 8.x
 configure: social_auth_google.settings_form
 dependencies:
   - social_auth

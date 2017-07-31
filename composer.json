@@ -1,7 +1,7 @@
 {
     "name": "drupal/social_auth_google",
     "type": "drupal-module",
-    "description": "Social Auth integration for Google",
+    "description": "Social Auth integration for Google.",
     "keywords": ["Drupal"],
     "license": "GPL-2.0+",
     "homepage": "https://www.drupal.org/project/social_auth_google",
@@ -11,12 +11,16 @@
         "source": "http://cgit.drupalcode.org/social_auth_google"
     },
     "require": {
-        "google/apiclient": "~2.0"
+        "league/oauth2-google": "^2.0"
     },
     "authors": [
         {
             "name": "Getulio Valentin Sánchez (gvso)",
             "email": "valentin2507@gmail.com"
+        },
+        {
+            "name": "Himanshu Dixit (himanshu-dixit)",
+            "email": "hudixt@gmail.com"
         }
     ]
 }
