@@ -14,7 +14,13 @@ CONTENTS OF THIS FILE
 INTRODUCTION
 ------------
 
-Social Auth Google Module is a Google Authentication integration for Drupal.
+Social Auth Google Module is a Google Authentication integration for Drupal. It
+is based on the Social Auth and Social API projects
+
+It adds to the site:
+ * A new url: /user/login/google.
+ * A settings form on /admin/config/social-api/social-auth/google page.
+ * A Google Logo in the Social Auth Login block.
 
 REQUIREMENTS
 ------------
@@ -34,6 +40,9 @@ INSTALLATION
  * Install as you would normally install a contributed Drupal module. See:
    https://drupal.org/documentation/install/modules-themes/modules-8
    for further information.
+
+ * A more comprehensive installation instruction for Drupal 8 can be found at
+   https://www.drupal.org/node/2764227.
 
 CONFIGURATION
 -------------
