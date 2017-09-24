@@ -23,4 +23,12 @@ interface GoogleAuthSettingsInterface {
    */
   public function getClientSecret();
 
+  /**
+   * Gets the Restricted domain.
+   *
+   * @return string
+   *   The Restricted domain.
+   */
+  public function getRestrictedDomain();
+
 }

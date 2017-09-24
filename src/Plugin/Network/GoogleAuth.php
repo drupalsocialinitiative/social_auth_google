@@ -87,6 +87,7 @@ class GoogleAuth extends SocialAuthNetwork {
     $client = new \Google_Client();
     $client->setClientId($settings->getClientId());
     $client->setClientSecret($settings->getClientSecret());
+    $client->setHostedDomain($settings->getRestrictedDomain());
     $client->setRedirectUri($redirect_uri);
 
     return $client;

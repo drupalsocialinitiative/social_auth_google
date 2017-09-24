@@ -36,6 +36,12 @@ class GoogleAuthSettingsForm extends SocialAuthSettingsForm {
       '#open' => TRUE,
     ];
 
+    $form['domain_settings'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Domain settings'),
+      '#open' => FALSE,
+    ];
+
     $form['google_settings']['client_id'] = [
       '#type' => 'textfield',
       '#required' => TRUE,
@@ -52,6 +58,14 @@ class GoogleAuthSettingsForm extends SocialAuthSettingsForm {
       '#description' => $this->t('Copy the Client Secret here'),
     ];
 
+    $form['domain_settings']['restricted_domain'] = [
+      '#type' => 'textfield',
+      '#required' => FALSE,
+      '#title' => $this->t('Restricted Domain'),
+      '#default_value' => $config->get('restricted_domain'),
+      '#description' => $this->t('If you want to restrict the users to a specific domain, insert your domain here. For example mycollege.edu. Note that this works only for Google Apps hosted accounts. Leave this blank if you are not sure what this is.'),
+    ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -64,6 +78,7 @@ class GoogleAuthSettingsForm extends SocialAuthSettingsForm {
     $this->config('social_auth_google.settings')
       ->set('client_id', $values['client_id'])
       ->set('client_secret', $values['client_secret'])
+      ->set('restricted_domain', $values['restricted_domain'])
       ->save();
 
     parent::submitForm($form, $form_state);
