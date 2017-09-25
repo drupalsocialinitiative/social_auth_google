@@ -34,7 +34,7 @@ class GoogleAuthManagerTest extends UnitTestCase {
   /**
    * Google Authentication manager.
    *
-   * @var GoogleAuthManager
+   * @var \Drupal\social_auth_google\GoogleAuthManager
    */
   protected $googleManager;
 
@@ -81,8 +81,8 @@ class GoogleAuthManagerTest extends UnitTestCase {
   /**
    * Sets \Google_Client object to GoogleAuthManager.
    *
-   * @return GoogleAuthManager
-   *    setClient() returns $this, the GoogleAuthManager object.
+   * @return \Drupal\social_auth_google\GoogleAuthManager
+   *   setClient() returns $this, the GoogleAuthManager object.
    */
   protected  function setClient() {
     return $this->googleManager->setClient($this->client);

@@ -71,7 +71,7 @@ class GoogleAuthManager extends OAuth2Manager {
   /**
    * Gets Google Oauth2 Service.
    *
-   * @return Google_Service_Oauth2
+   * @return \Google_Service_Oauth2
    *   The Google Oauth2 service.
    */
   protected function getOauth2Service() {

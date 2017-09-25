@@ -52,7 +52,7 @@ class GoogleAuthController extends ControllerBase {
    *   Manages user login/registration.
    * @param \Drupal\social_auth_google\GoogleAuthManager $google_manager
    *   Used to manage authentication methods.
-   * @param SessionInterface $session
+   * @param \Symfony\Component\HttpFoundation\Session\SessionInterface $session
    *   Used to store the access token into a session variable.
    */
   public function __construct(NetworkManager $network_manager, SocialAuthUserManager $user_manager, GoogleAuthManager $google_manager, SessionInterface $session) {
