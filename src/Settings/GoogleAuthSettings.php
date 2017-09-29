@@ -24,6 +24,13 @@ class GoogleAuthSettings extends SettingsBase implements GoogleAuthSettingsInter
   protected $clientSecret;
 
   /**
+   * Restricted domain.
+   *
+   * @var string
+   */
+  protected $restrictedDomain;
+
+  /**
    * {@inheritdoc}
    */
   public function getClientId() {
@@ -41,6 +48,16 @@ class GoogleAuthSettings extends SettingsBase implements GoogleAuthSettingsInter
       $this->clientSecret = $this->config->get('client_secret');
     }
     return $this->clientSecret;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getRestrictedDomain() {
+    if (!$this->restrictedDomain) {
+      $this->restrictedDomain = $this->config->get('restricted_domain');
+    }
+    return $this->restrictedDomain;
   }
 
 }

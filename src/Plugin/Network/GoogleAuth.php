@@ -136,27 +136,23 @@ class GoogleAuth extends NetworkBase implements GoogleAuthInterface {
     }
     /* @var \Drupal\social_auth_google\Settings\GoogleAuthSettings $settings */
     $settings = $this->settings;
-    // Proxy configuration data for outward proxy.
-    $proxyUrl = $this->siteSettings->get("http_client_config")["proxy"]["http"];
+
     if ($this->validateConfig($settings)) {
       // All these settings are mandatory.
+      $league_settings = [
+        'clientId' => $settings->getClientId(),
+        'clientSecret' => $settings->getClientSecret(),
+        'redirectUri' => $this->requestContext->getCompleteBaseUrl() . '/user/login/google/callback',
+        'accessType' => 'offline',
+        'verify' => FALSE,
+        'hostedDomain' => $settings->getRestrictedDomain(),
+      ];
+
+      // Proxy configuration data for outward proxy.
+      $proxyUrl = $this->siteSettings->get("http_client_config")["proxy"]["http"];
       if ($proxyUrl) {
         $league_settings = [
-          'clientId' => $settings->getClientId(),
-          'clientSecret' => $settings->getClientSecret(),
-          'redirectUri' => $this->requestContext->getCompleteBaseUrl() . '/user/login/google/callback',
-          'accessType' => 'offline',
-          'verify' => FALSE,
           'proxy' => $proxyUrl,
-        ];
-      }
-      else {
-        $league_settings = [
-          'clientId' => $settings->getClientId(),
-          'clientSecret' => $settings->getClientSecret(),
-          'redirectUri' => $this->requestContext->getCompleteBaseUrl() . '/user/login/google/callback',
-          'accessType' => 'offline',
-          'verify' => FALSE,
         ];
       }
 

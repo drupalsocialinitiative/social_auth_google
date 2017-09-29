@@ -8,3 +8,6 @@ social_auth_google.settings:
     client_secret:
       type: string
       label: 'Client Secret'
+    restricted_domain:
+      type: string
+      label: 'Restricted Domain'
