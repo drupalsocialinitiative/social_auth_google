@@ -122,6 +122,13 @@ class GoogleAuthController extends ControllerBase {
       return $this->redirect('user.login');
     }
 
+    // Destination parameter specified in url.
+    $destination = $this->request->getCurrentRequest()->get('destination');
+    // If destination parameter is set, save it.
+    if ($destination) {
+      $this->userManager->setDestination($destination);
+    }
+
     // Google service was returned, inject it to $googleManager.
     $this->googleManager->setClient($google);
 
