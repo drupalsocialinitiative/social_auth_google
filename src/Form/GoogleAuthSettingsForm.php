@@ -152,8 +152,8 @@ class GoogleAuthSettingsForm extends SocialAuthSettingsForm {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
     $this->config('social_auth_google.settings')
-      ->set('client_id', $values['client_id'])
-      ->set('client_secret', $values['client_secret'])
+      ->set('client_id', trim($values['client_id']))
+      ->set('client_secret', trim($values['client_secret']))
       ->set('scopes', $values['scopes'])
       ->set('api_calls', $values['api_calls'])
       ->set('restricted_domain', $values['restricted_domain'])
