@@ -8,6 +8,12 @@ social_auth_google.settings:
     client_secret:
       type: string
       label: 'Client Secret'
+    scopes:
+      type: string
+      label: 'Scopes to make API calls'
+    api_calls:
+      type: string
+      label: 'API calls which will retrieve data'
     restricted_domain:
       type: string
       label: 'Restricted Domain'
