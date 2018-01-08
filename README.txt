@@ -1,15 +1,13 @@
-SOCIAL AUTH GOOGLE MODULE
-
 CONTENTS OF THIS FILE
 ---------------------
 
  * Introduction
  * Requirements
- * Recommended modules
  * Installation
  * Configuration
  * How it works
  * Support requests
+ * Maintainers
 
 INTRODUCTION
 ------------
@@ -34,6 +32,7 @@ INSTALLATION
 ------------
 
  * Run composer to install the dependencies.
+   composer require "drupal/social_auth_google:~2.0"
 
  * Install the dependencies: Social API and Social Auth.
 
@@ -42,7 +41,7 @@ INSTALLATION
    for further information.
 
  * A more comprehensive installation instruction for Drupal 8 can be found at
-   https://www.drupal.org/node/2764227.
+   https://www.drupal.org/node/2923804/
 
 CONFIGURATION
 -------------
