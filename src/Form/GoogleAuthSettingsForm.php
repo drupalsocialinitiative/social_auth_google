@@ -118,7 +118,7 @@ class GoogleAuthSettingsForm extends SocialAuthSettingsForm {
       '#disabled' => TRUE,
       '#title' => $this->t('Authorized Javascript Origin'),
       '#description' => $this->t('Copy this value to <em>Authorized Javascript Origins</em> field of your Google App settings.'),
-      '#default_value' => $this->requestContext->getHost(),
+      '#default_value' => $GLOBALS['base_url'],
     ];
 
     $form['google_settings']['scopes'] = [
