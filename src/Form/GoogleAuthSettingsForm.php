@@ -80,7 +80,7 @@ class GoogleAuthSettingsForm extends SocialAuthSettingsForm {
       '#type' => 'details',
       '#title' => $this->t('Google Client settings'),
       '#open' => TRUE,
-      '#description' => $this->t('You need to first create a Google App at <a href="@google-dev">@google-dev</a>', ['@google-dev' => 'https://developers.google.com/apps']),
+      '#description' => $this->t('You need to first create a Google App at <a href="@google-dev">@google-dev</a>', ['@google-dev' => 'https://console.developers.google.com']),
     ];
 
     $form['domain_settings'] = [
