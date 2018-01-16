@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 
 /**
- * Returns responses for Simple Google Connect module routes.
+ * Returns responses for Social Auth Google module routes.
  */
 class GoogleAuthController extends ControllerBase {
 

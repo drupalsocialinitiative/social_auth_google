@@ -17,7 +17,7 @@ use Drupal\Core\Site\Settings;
 /**
  * Defines a Network Plugin for Social Auth Google.
  *
- * @package Drupal\simple_google_connect\Plugin\Network
+ * @package Drupal\social_auth_google\Plugin\Network
  *
  * @Network(
  *   id = "social_auth_google",
