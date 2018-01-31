@@ -149,7 +149,7 @@ class GoogleAuth extends NetworkBase implements GoogleAuthInterface {
       ];
 
       // Proxy configuration data for outward proxy.
-      $proxyUrl = $this->siteSettings->get("http_client_config")["proxy"]["http"];
+      $proxyUrl = $this->siteSettings->get('http_client_config')['proxy']['http'];
       if ($proxyUrl) {
         $league_settings = [
           'proxy' => $proxyUrl,
