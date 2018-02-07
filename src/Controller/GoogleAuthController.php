@@ -176,7 +176,7 @@ class GoogleAuthController extends ControllerBase {
       drupal_set_message($this->t('Google login failed, could not load Google profile. Contact site administrator.'), 'error');
       return $this->redirect('user.login');
     }
-    var_dump($this->userManager->checkIfUserExists($google_profile->getId()));
+
     // Gets (or not) extra initial data.
     $data = $this->userManager->checkIfUserExists($google_profile->getId()) ? NULL : $this->googleManager->getExtraDetails();
 
