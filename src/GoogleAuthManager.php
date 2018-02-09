@@ -48,7 +48,7 @@ class GoogleAuthManager extends OAuth2Manager {
     $google_scopes = $this->getScopes();
     if ($google_scopes) {
       if (strpos($google_scopes, ',')) {
-        $scopes += explode(',', $google_scopes);
+        $scopes = array_merge($scopes, explode(',', $google_scopes));
       }
       else {
         $scopes[] = $google_scopes;
