@@ -64,30 +64,6 @@ class GoogleAuthManager extends OAuth2Manager {
   /**
    * {@inheritdoc}
    */
-  public function getExtraDetails() {
-    $endpoints = $this->getEndPoints();
-
-    // Store the data mapped with endpoints define in settings.
-    $data = [];
-
-    if ($endpoints) {
-      // Iterate through api calls define in settings and retrieve them.
-      foreach (explode(PHP_EOL, $endpoints) as $endpoint) {
-        // Endpoint is set as path/to/endpoint|name.
-        $parts = explode('|', $endpoint);
-        $call[$parts[1]] = $this->requestEndPoint($parts[0]);
-        array_push($data, $call);
-      }
-
-      return json_encode($data);
-    }
-
-    return NULL;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function requestEndPoint($path) {
     $url = 'https://www.googleapis.com' . $path;
 
