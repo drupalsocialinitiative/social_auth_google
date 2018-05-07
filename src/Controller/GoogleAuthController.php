@@ -123,8 +123,6 @@ class GoogleAuthController extends ControllerBase {
     $this->googleManager->setClient($google);
 
     // Generates the URL where the user will be redirected for Google login.
-    // If the user did not have email permission granted on previous attempt,
-    // we use the re-request URL requesting only the email address.
     $google_login_url = $this->googleManager->getAuthorizationUrl();
 
     $state = $this->googleManager->getState();
@@ -166,10 +164,10 @@ class GoogleAuthController extends ControllerBase {
       return $this->redirect('user.login');
     }
 
+    $this->googleManager->setClient($google)->authenticate();
+
     // Saves access token to session.
     $this->dataHandler->set('access_token', $this->googleManager->getAccessToken());
-
-    $this->googleManager->setClient($google)->authenticate();
 
     // Gets user's info from Google API.
     if (!$google_profile = $this->googleManager->getUserInfo()) {
