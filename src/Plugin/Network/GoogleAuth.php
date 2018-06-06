@@ -132,7 +132,7 @@ class GoogleAuth extends NetworkBase implements GoogleAuthInterface {
 
     $class_name = '\League\OAuth2\Client\Provider\Google';
     if (!class_exists($class_name)) {
-      throw new SocialApiException(sprintf('The Google Library for the league oAuth not found. Class: %s.', $class_name));
+      throw new SocialApiException(sprintf('The Google library for PHP League OAuth2 not found. Class: %s.', $class_name));
     }
     /* @var \Drupal\social_auth_google\Settings\GoogleAuthSettings $settings */
     $settings = $this->settings;
