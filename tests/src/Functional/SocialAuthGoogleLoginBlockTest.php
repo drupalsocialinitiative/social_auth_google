@@ -2,16 +2,16 @@
 
 namespace Drupal\Tests\social_auth_google\Functional;
 
-use Drupal\Tests\social_auth\Functional\SocialAuthBaseTest;
+use Drupal\Tests\social_auth\Functional\SocialAuthTestBase;
 
 /**
- * Test path to authentication route exists in Social Auth Login block.
+ * Test that path to authentication route exists in Social Auth Login block.
  *
  * @group social_auth
  *
  * @ingroup social_auth_google
  */
-class SocialAuthGoogleLoginBlockTest extends SocialAuthBaseTest {
+class SocialAuthGoogleLoginBlockTest extends SocialAuthTestBase {
 
   /**
    * Modules to enable.
