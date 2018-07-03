@@ -1,7 +1,7 @@
 social_auth_google.redirect_to_google:
   path: 'user/login/google'
   defaults:
-    _controller: '\Drupal\social_auth_google\Controller\GoogleAuthController::redirectToGoogle'
+    _controller: '\Drupal\social_auth_google\Controller\GoogleAuthController::redirectToProvider'
   requirements:
     # Anonymous users can log in, but authenticated users can also associate a new provider.
     _access: 'TRUE'
