@@ -122,8 +122,9 @@ class GoogleAuth extends NetworkBase implements GoogleAuthInterface {
   /**
    * Sets the underlying SDK library.
    *
-   * @return \League\OAuth2\Client\Provider\Google
+   * @return \League\OAuth2\Client\Provider\Google|false
    *   The initialized 3rd party library instance.
+   *   False if library could not be initialized.
    *
    * @throws SocialApiException
    *   If the SDK library does not exist.
@@ -151,13 +152,12 @@ class GoogleAuth extends NetworkBase implements GoogleAuthInterface {
       // Proxy configuration data for outward proxy.
       $proxyUrl = $this->siteSettings->get('http_client_config')['proxy']['http'];
       if ($proxyUrl) {
-        $league_settings = [
-          'proxy' => $proxyUrl,
-        ];
+        $league_settings['proxy'] = $proxyUrl;
       }
 
       return new Google($league_settings);
     }
+
     return FALSE;
   }
 
