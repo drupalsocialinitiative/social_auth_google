@@ -4,9 +4,9 @@ namespace Drupal\social_auth_google\Controller;
 
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\social_api\Plugin\NetworkManager;
-use Drupal\social_auth\Controller\SocialAuthOAuth2ControllerBase;
+use Drupal\social_auth\Controller\OAuth2ControllerBase;
 use Drupal\social_auth\SocialAuthDataHandler;
-use Drupal\social_auth\SocialAuthUserManager;
+use Drupal\social_auth\User\UserAuthenticator;
 use Drupal\social_auth_google\GoogleAuthManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 /**
  * Returns responses for Social Auth Google module routes.
  */
-class GoogleAuthController extends SocialAuthOAuth2ControllerBase {
+class GoogleAuthController extends OAuth2ControllerBase {
 
   /**
    * GoogleAuthController constructor.
@@ -23,8 +23,8 @@ class GoogleAuthController extends SocialAuthOAuth2ControllerBase {
    *   The messenger service.
    * @param \Drupal\social_api\Plugin\NetworkManager $network_manager
    *   Used to get an instance of social_auth_google network plugin.
-   * @param \Drupal\social_auth\SocialAuthUserManager $user_manager
-   *   Manages user login/registration.
+   * @param \Drupal\social_auth\User\UserAuthenticator $user_authenticator
+   *   Used to manage user authentication/registration.
    * @param \Drupal\social_auth_google\GoogleAuthManager $google_manager
    *   Used to manage authentication methods.
    * @param \Symfony\Component\HttpFoundation\RequestStack $request
@@ -34,12 +34,12 @@ class GoogleAuthController extends SocialAuthOAuth2ControllerBase {
    */
   public function __construct(MessengerInterface $messenger,
                               NetworkManager $network_manager,
-                              SocialAuthUserManager $user_manager,
+                              UserAuthenticator $user_authenticator,
                               GoogleAuthManager $google_manager,
                               RequestStack $request,
                               SocialAuthDataHandler $data_handler) {
 
-    parent::__construct('Social Auth Google', 'social_auth_google', $messenger, $network_manager, $user_manager, $google_manager, $request, $data_handler);
+    parent::__construct('Social Auth Google', 'social_auth_google', $messenger, $network_manager, $user_authenticator, $google_manager, $request, $data_handler);
   }
 
   /**
@@ -49,7 +49,7 @@ class GoogleAuthController extends SocialAuthOAuth2ControllerBase {
     return new static(
       $container->get('messenger'),
       $container->get('plugin.network.manager'),
-      $container->get('social_auth.user_manager'),
+      $container->get('social_auth.user_authenticator'),
       $container->get('social_auth_google.manager'),
       $container->get('request_stack'),
       $container->get('social_auth.data_handler')
@@ -70,17 +70,17 @@ class GoogleAuthController extends SocialAuthOAuth2ControllerBase {
       return $this->redirect('user.login');
     }
 
-    /* @var \League\OAuth2\Client\Provider\GoogleUser $profile */
+    /* @var \League\OAuth2\Client\Provider\GoogleUser|null $profile */
     $profile = $this->processCallback();
 
     // If authentication was successful.
     if ($profile !== NULL) {
 
       // Gets (or not) extra initial data.
-      $data = $this->userManager->checkIfUserExists($profile->getId()) ? NULL : $this->providerManager->getExtraDetails();
+      $data = $this->userAuthenticator->checkProviderIsAssociated($profile->getId()) ? NULL : $this->providerManager->getExtraDetails();
 
       // If user information could be retrieved.
-      return $this->userManager->authenticateUser($profile->getName(), $profile->getEmail(), $profile->getId(), $this->providerManager->getAccessToken(), $profile->getAvatar(), $data);
+      return $this->userAuthenticator->authenticateUser($profile->getName(), $profile->getEmail(), $profile->getId(), $this->providerManager->getAccessToken(), $profile->getAvatar(), $data);
     }
 
     return $this->redirect('user.login');
