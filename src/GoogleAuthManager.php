@@ -65,13 +65,11 @@ class GoogleAuthManager extends OAuth2Manager {
    * {@inheritdoc}
    */
   public function requestEndPoint($path) {
-    $url = 'https://www.googleapis.com' . $path;
+    $url = 'https://www.googleapis.com/' . $path;
 
     $request = $this->client->getAuthenticatedRequest('GET', $url, $this->getAccessToken());
 
-    $response = $this->client->getResponse($request);
-
-    return $response->getBody()->getContents();
+    return $this->client->getParsedResponse($request);
   }
 
   /**

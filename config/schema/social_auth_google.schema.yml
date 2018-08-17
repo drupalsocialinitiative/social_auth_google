@@ -13,7 +13,7 @@ social_auth_google.settings:
       label: 'Scopes to be requested'
     endpoints:
       type: string
-      label: 'API Endpoints to be requested'
+      label: 'API endpoints to be requested'
     restricted_domain:
       type: string
       label: 'Restricted Domain'
