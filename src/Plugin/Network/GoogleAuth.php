@@ -6,6 +6,7 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Routing\RequestContext;
+use Drupal\Core\Url;
 use Drupal\social_auth\SocialAuthDataHandler;
 use Drupal\social_api\Plugin\NetworkBase;
 use Drupal\social_api\SocialApiException;
@@ -142,7 +143,7 @@ class GoogleAuth extends NetworkBase implements GoogleAuthInterface {
       $league_settings = [
         'clientId' => $settings->getClientId(),
         'clientSecret' => $settings->getClientSecret(),
-        'redirectUri' => $this->requestContext->getCompleteBaseUrl() . '/user/login/google/callback',
+        'redirectUri' => Url::fromRoute('social_auth_google.callback')->setAbsolute()->toString(TRUE)->getGeneratedUrl(),
         'accessType' => 'offline',
         'verify' => FALSE,
         'hostedDomain' => $settings->getRestrictedDomain(),
