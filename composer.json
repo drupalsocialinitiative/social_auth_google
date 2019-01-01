@@ -11,7 +11,7 @@
         "source": "http://cgit.drupalcode.org/social_auth_google"
     },
     "require": {
-        "league/oauth2-google": "^2.0"
+        "league/oauth2-google": "^3.0"
     },
     "authors": [
         {
