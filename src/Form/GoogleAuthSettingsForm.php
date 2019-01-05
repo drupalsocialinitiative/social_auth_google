@@ -127,7 +127,7 @@ class GoogleAuthSettingsForm extends SocialAuthSettingsForm {
       '#title' => $this->t('Scopes for API call'),
       '#default_value' => $config->get('scopes'),
       '#description' => $this->t('Define any additional scopes to be requested, separated by a comma (e.g.: https://www.googleapis.com/auth/youtube.upload,https://www.googleapis.com/auth/youtube.readonly).<br>
-                                  The scopes \'email\' and \'profile\' (from Google Plus) are added by default and always requested.<br>
+                                  The scopes  \'openid\' \'email\' and \'profile\' are added by default and always requested.<br>
                                   You can see the full list of valid scopes and their description <a href="@scopes">here</a>.', ['@scopes' => 'https://developers.google.com/apis-explorer/#p/']),
     ];
 
