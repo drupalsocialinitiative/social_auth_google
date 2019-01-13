@@ -19,7 +19,7 @@ based on the Social Auth and Social API projects
 It adds to the site:
  * A new url: /user/login/google.
  * A settings form on /admin/config/social-api/social-auth/google page.
- * A Google Logo in the Social Auth Login block.
+ * A Google logo in the Social Auth Login block.
 
 
 REQUIREMENTS
@@ -35,7 +35,7 @@ INSTALLATION
 ------------
 
  * Run composer to install the dependencies.
-   composer require "drupal/social_auth_google:~2.0"
+   composer require "drupal/social_auth_google:^2.0"
 
  * Install the dependencies: Social API and Social Auth.
 

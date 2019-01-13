@@ -21,7 +21,6 @@ function social_auth_google_help($route_name, RouteMatchInterface $route_match) 
         ['@doc-url' => 'https://www.drupal.org/docs/8/modules/social-api/social-api-2x/social-auth-2x/social-auth-google-2x-installation']);
       $output .= '</p>';
       break;
-
   }
 
   return $output;
