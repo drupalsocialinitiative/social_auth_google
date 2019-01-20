@@ -60,12 +60,7 @@ class GoogleAuthManager extends OAuth2Manager {
 
     $extra_scopes = $this->getScopes();
     if ($extra_scopes) {
-      if (strpos($extra_scopes, ',')) {
-        $scopes = array_merge($scopes, explode(',', $extra_scopes));
-      }
-      else {
-        $scopes[] = $extra_scopes;
-      }
+      $scopes = array_merge($scopes, explode(',', $extra_scopes));
     }
 
     // Returns the URL where user will be redirected.
