@@ -26,7 +26,6 @@ class SocialAuthGoogleSettingsFormTest extends SocialAuthTestBase {
   protected function setUp() {
     $this->module = 'social_auth_google';
     $this->provider = 'google';
-    $this->moduleType = 'social-auth';
 
     parent::setUp();
   }
