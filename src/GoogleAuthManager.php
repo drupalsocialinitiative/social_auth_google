@@ -20,8 +20,11 @@ class GoogleAuthManager extends OAuth2Manager {
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger_factory
    *   The logger factory.
    */
-  public function __construct(ConfigFactory $configFactory, LoggerChannelFactoryInterface $logger_factory) {
-    parent::__construct($configFactory->get('social_auth_google.settings'), $logger_factory);
+  public function __construct(ConfigFactory $configFactory,
+                              LoggerChannelFactoryInterface $logger_factory) {
+
+    parent::__construct($configFactory->get('social_auth_google.settings'),
+                        $logger_factory);
   }
 
   /**

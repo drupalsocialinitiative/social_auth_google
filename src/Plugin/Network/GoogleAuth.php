@@ -34,7 +34,7 @@ class GoogleAuth extends NetworkBase implements GoogleAuthInterface {
    *   The initialized 3rd party library instance.
    *   False if library could not be initialized.
    *
-   * @throws SocialApiException
+   * @throws \Drupal\social_api\SocialApiException
    *   If the SDK library does not exist.
    */
   protected function initSdk() {
@@ -44,7 +44,7 @@ class GoogleAuth extends NetworkBase implements GoogleAuthInterface {
       throw new SocialApiException(sprintf('The Google library for PHP League OAuth2 not found. Class: %s.', $class_name));
     }
 
-    /* @var \Drupal\social_auth_google\Settings\GoogleAuthSettings $settings */
+    /** @var \Drupal\social_auth_google\Settings\GoogleAuthSettings $settings */
     $settings = $this->settings;
 
     if ($this->validateConfig($settings)) {
